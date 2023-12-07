@@ -1,23 +1,6 @@
-pipeline {
-    agent any
-    
-    stages {
-        stage('Capture Artifact Name') {
-            steps {
-                script {
-                    def log = currentBuild.rawBuild.getLog(1000) // Fetches last 1000 lines of the console log
-
-                    def filePattern = /\/([^\/]+\.(jar|war))$/
-                    def matchedFile = log =~ filePattern
-
-                    if (matchedFile) {
-                        echo "Artifact file name: ${matchedFile[0][1]}"
-                        // Access matchedFile[0][1] for the captured file name (JAR or WAR)
-                    }
-                }
-            }
-        }
-        // Other stages in your pipeline
-    }
-    // Post-build actions, etc.
+def consoleOutput = '[consumer_e] Deploying artifact: http://54.211.105.217:8082/artifactory/example-repo-local/addressbook.war'
+def pattern = /http:\/\/[\d.:\/]+addressbook\.war/
+def url = (consoleOutput =~ pattern).find { it }
+if (url) {
+    println "Found URL: ${url[0]}"
 }

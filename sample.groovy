@@ -1,11 +1,7 @@
-pipeline {
-    agent any
-
-    stages {
         stage('Search Log File') {
             steps {
                 script {
-                    def logFilePath = 'path/to/your/logfile.log'
+                    def logFilePath = '/var/lib/jenkins/workspace/addressbook/jenkins_console_output.txt'
                     def pattern = 'Deploying artifact: (http[s]?:\\/\\/(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}(?::\\d{1,5})?(?:\\/\\S*)?\\/(?:\\S+\\/)*\\S+\\.(?:jar|war))'
 
                     def grepCommand = "grep -E \"$pattern\" $logFilePath"
@@ -15,5 +11,3 @@ pipeline {
                 }
             }
         }
-    }
-}

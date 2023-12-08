@@ -36,3 +36,30 @@ pipeline {
         }
     }
 }
+
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Fetch and Display Console Output') {
+            steps {
+                script {
+                    def username = 'your_username'
+                    def password = 'your_password'
+                    
+                    def output = sh(
+                        returnStdout: true,
+                        script: "curl -u ${username}:${password} -s ${BUILD_URL}/consoleText"
+                    )
+                    writeFile file: 'output.txt', text: output
+
+                    def savedOutput = readFile('output.txt')
+                    echo "Console Output:"
+                    echo savedOutput
+                }
+            }
+        }
+    }
+}

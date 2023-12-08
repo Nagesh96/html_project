@@ -15,11 +15,24 @@
 
 def pattern = 'http://54\\.211\\.105\\.217:8082/.*\\.(jar|war)'
 
-post {
-        always {
-            script {
-                def workspace = pwd()
-                sh "echo '${currentBuild.rawBuild.getLog()}' > ${workspace}/output.log"
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Fetch and Display Console Output') {
+            steps {
+                script {
+                    // Fetch console output and save to a file
+                    def output = sh(returnStdout: true, script: "curl -s ${BUILD_URL}/consoleText")
+                    writeFile file: 'output.txt', text: output
+                    
+                    // Read the file and display the content in the console
+                    def savedOutput = readFile('output.txt')
+                    echo "Console Output:"
+                    echo savedOutput
+                }
             }
         }
+    }
 }

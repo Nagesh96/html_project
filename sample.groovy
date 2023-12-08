@@ -63,3 +63,19 @@ pipeline {
         }
     }
 }
+
+
+        
+        stage('Search Log File') {
+            steps {
+                script {
+                    def logFilePath = 'output.txt'
+                    def pattern = 'http.*\\.(jar|war)'
+
+                    def grepCommand = "grep -E \"$pattern\" $logFilePath"
+                    def grepOutput = sh(script: grepCommand, returnStdout: true).trim()
+
+                    echo "Grep Output:\n$grepOutput"
+                }
+            }
+        }

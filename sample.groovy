@@ -16,13 +16,11 @@
 def pattern = 'http://54\\.211\\.105\\.217:8082/.*\\.(jar|war)'
 
 
-
 post {
         always {
             script {
                 def log = currentBuild.rawBuild.getLog()
-                new File("${env.WORKSPACE}/output.log").write(log)
+                writeFile file: 'output.log', text: log
             }
         }
     }
-}

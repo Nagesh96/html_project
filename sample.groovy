@@ -65,17 +65,22 @@ pipeline {
 }
 
 
-        
-        stage('Search Log File') {
-            steps {
-                script {
-                    def logFilePath = 'output.txt'
-                    def pattern = 'http.*\\.(jar|war)'
 
-                    def grepCommand = "grep -E \"$pattern\" $logFilePath"
-                    def grepOutput = sh(script: grepCommand, returnStdout: true).trim()
+stage('Search Log File') {
+    steps {
+        script {
+            def logFilePath = 'output.txt'
+            def pattern = 'http.*\\.(jar|war)'
 
-                    echo "Grep Output:\n$grepOutput"
-                }
+            def grepCommand = "grep -E '${pattern}' ${logFilePath}"
+            def grepOutput = sh(script: grepCommand, returnStdout: true, returnStatus: true)
+
+            if (grepOutput == 0) {
+                def filteredOutput = sh(script: grepCommand, returnStdout: true).trim()
+                echo "Grep Output:\n${filteredOutput}"
+            } else {
+                echo "No matches found for the pattern '${pattern}' in ${logFilePath}."
             }
         }
+    }
+}

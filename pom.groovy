@@ -48,7 +48,7 @@ pipeline {
                     def link = "${JFROG_ARTIFACTURL}"
                     COMMENT = "${text}${link}"
                     env.COMMENT = COMMENT
-                    VERSION=4.0.0-02-${BUILD_NUMBER}
+        
 
 
 def pom = readMavenPom file: 'pom.xml'

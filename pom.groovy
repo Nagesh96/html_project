@@ -57,3 +57,10 @@ def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '-')
 echo "Version: ${version}"
 echo "Artifact ID: ${ARTIFACT_ID}"
 env.VERSION = version
+
+def pom = readMavenPom file: 'pom.xml'
+def ARTIFACT_ID = pom.artifactId
+def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}.*/, '')
+echo "Version: ${version}"
+echo "Artifact ID: ${ARTIFACT_ID}"
+env.VERSION = version

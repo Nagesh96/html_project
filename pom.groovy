@@ -29,3 +29,11 @@ pipeline {
         // Other stages in your pipeline
     }
 }
+
+
+def pom = readMavenPom file: 'pom.xml'
+
+def ARTIFACT_ID = pom.artifactId
+def version = pom.version
+
+sh "echo 'VERSION=${version != null ? version.replaceAll('-null', '') : ''}'"

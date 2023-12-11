@@ -49,3 +49,11 @@ pipeline {
                     COMMENT = "${text}${link}"
                     env.COMMENT = COMMENT
                     VERSION=4.0.0-02-${BUILD_NUMBER}
+
+
+def pom = readMavenPom file: 'pom.xml'
+def ARTIFACT_ID = pom.artifactId
+def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '-')
+echo "Version: ${version}"
+echo "Artifact ID: ${ARTIFACT_ID}"
+env.VERSION = version

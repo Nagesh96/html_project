@@ -86,7 +86,7 @@ env.COMMENT = COMMENT
 
 
 
-def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '-')
+def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '')
 
 
 

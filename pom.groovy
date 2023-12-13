@@ -81,3 +81,16 @@ def text = "Reference URL of the published Artifact: "
 def link = "${JFROG_ARTIFACTURL}"
 def COMMENT = "${text}${link}"
 env.COMMENT = COMMENT
+
+
+
+
+
+def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '-')
+
+
+
+
+
+
+

@@ -90,6 +90,36 @@ def version = pom.version.replaceAll(/-(\d+)-\$\{BUILD_NUMBER\}/, '')
 
 
 
+pipeline {
+    agent any
+    
+    stages {
+        stage('Extract Artifact Info') {
+            steps {
+                script {
+                    def packageJson = readFile('path/to/package.json')
+                    def json = readJSON text: packageJson
+                    
+                    def artifactId = json.name
+                    def version = json.version
+                    
+                    echo "Artifact ID: ${artifactId}"
+                    echo "Version: ${version}"
+                    
+                    // You can store these values in environment variables or use them as needed
+                    // For example, to store in environment variables:
+                    env.ARTIFACT_ID = artifactId
+                    env.VERSION = version
+                }
+            }
+        }
+        
+        // Add more stages for your build, test, deployment, etc.
+    }
+}
+
+
+
 
 
 

@@ -2,3 +2,16 @@ text="Reference for Oracle doc: "
 link="<a href='https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html'>PAGE</a>"
 daat="${text}${link}"
 echo "$daat"
+
+
+# Install Python 3
+curl -O https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
+tar -xzvf Python-3.8.12.tgz
+cd Python-3.8.12
+./configure
+make
+make install
+
+# Install pip for Python 3
+curl -O https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py
